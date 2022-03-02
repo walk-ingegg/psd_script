@@ -97,3 +97,5 @@ function doFinsh() {
     activeDocument.close(SaveOptions.DONOTSAVECHANGES);
  }
 
+
+ alert("hogehoge");
