@@ -41,14 +41,13 @@ function main() {
 }
 
 
-
-
-
+/**
+   フォルダを選択
+**/
 function selectFolder(Comment) {
     var folderObj = Folder.selectDialog(Comment);
     return folderObj;
 }
-
 
 
 /**
@@ -78,6 +77,7 @@ function saveAsJPG(Name) {
     jpegOpt = null;
 }
 
+
 /**
    SPointでstrの文字列を分解して、SNumberのブロックを取り出す
 **/
@@ -90,12 +90,12 @@ function getTrimStr(str, SPoint, SNumber) {
     return result;
 }
 
+
 /**
    ファイルを閉じる
 **/
 function doFinsh() {
     activeDocument.close(SaveOptions.DONOTSAVECHANGES);
- }
+}
 
 
- alert("hogehoge");
