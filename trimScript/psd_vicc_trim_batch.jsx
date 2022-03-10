@@ -2,7 +2,7 @@
    ユーザの変更値（ユーザ毎に変更が必要）
 **/
 IMG_EXTENSION = "*.psd";
-ACTION_NAME = "vicc_trim_000";
+ACTION_NAME = "vicc_trim";
 SET_NAME = "vicc_trim";
 
 

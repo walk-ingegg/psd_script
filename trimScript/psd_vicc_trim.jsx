@@ -2,8 +2,14 @@
    ユーザの変更値（ユーザ毎に変更が必要）
 **/
 IMG_EXTENSION = "*.psd";
-ACTION_NAME = "vicc_trim_000";
+ACTION_NAME = "vicc_trim_001";
 SET_NAME = "vicc_trim";
+
+
+/**
+   下準備
+**/
+var doc= app.activeDocument;
 
 
 if (BridgeTalk.appName == "photoshop") {
@@ -12,12 +18,12 @@ if (BridgeTalk.appName == "photoshop") {
 
 function main() {
 
-    var inPath = selectFolder("バッチ処理するRenderフォルダを選択").getFiles();
-    // var inPath = inPath.getFiles();
+    var inPath = doc.path+'/'+doc.name;
+
     var outPath = selectFolder("処理後のファイルを保存するフォルダを選択");
 
     for (i = 0; i < inPath.length; i++) {
-        var inFileList = inPath[i].getFiles("*.psd");
+        var inFileList = inPath[i].getFiles(IMG_EXTENSION);
 
         try {
             doOpen(inFileList)
@@ -32,7 +38,6 @@ function main() {
 
                 // 分割されたファイルを保存する
                 saveAsJPG(outPath + "/" + inName + ".jpg");
-
 
                 doFinsh();
             }
