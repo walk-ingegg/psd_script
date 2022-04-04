@@ -2,10 +2,15 @@ IMG_EXTENSION = "*.psd";
 ACTION_NAME = "vicc_trim";
 SET_NAME = "vicc_trim";
 
+var myDoc = app.activeDocument;
 
 myDoc.save(); //ファイルを上書き保存
 var inPath = myDoc.path + '/' + myDoc.name;
 
+
+/**
+   メイン
+**/
 if (BridgeTalk.appName == "photoshop") {
     main();
 }
@@ -15,23 +20,23 @@ function main() {
     var outPath = selectFolder("処理後のファイルを保存するフォルダを選択");
 
     try {
-        doOpen(inFileList)
+        doOpen(inPath)
 
-        while (documents.length) {
-            // 開いたファイルにアクションを適用
-            doAction(ACTION_NAME, SET_NAME);
+        // 開いたファイルにアクションを適用
+        doAction(ACTION_NAME, SET_NAME);
 
-            //.psdの前の部分を抽出
-            inName = activeDocument.name
-            inName = getTrimStr(inName, ".", 0)
+        //.psdの前の部分を抽出
+        inName = activeDocument.name
+        inName = getTrimStr(inName, ".", 0)
 
-            // 分割されたファイルを保存する
-            saveAsJPG(outPath + "/" + inName + ".jpg");
+        // 分割されたファイルを保存する
+        saveAsJPG(outPath + "/" + inName + ".jpg");
 
+        doFinsh();
 
-            doFinsh();
-        }
     } catch (e) { }
+
+    doOpen(inPath)
 }
 
 
