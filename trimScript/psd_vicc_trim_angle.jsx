@@ -25,7 +25,7 @@ gUIWindow.activeDocPnl.radiorBtn1.value = true;
 gUIWindow.dList = gUIWindow.add("dropdownlist", [15, 110, 365, 130], layList);
 gUIWindow.dList.selection = 0;
 
-gUIWindow.filterPnl = gUIWindow.add("panel", [10, 90, 370, 140], "フィルターの処理");
+gUIWindow.filterPnl = gUIWindow.add("panel", [10, 90, 370, 140], "書きだすレイヤー");
 
 gUIWindow.okBtn = gUIWindow.add("button", [80, 145, 175, 170], "実行");
 gUIWindow.cancelBtn = gUIWindow.add("button", [190, 145, 285, 170], "キャンセル");
