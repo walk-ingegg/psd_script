@@ -9,9 +9,9 @@ var backupPath = docPath + "/old_" + getTrimStr(docName, ".", 0);
 /**
  メイン
  **/
-if (BridgeTalk.appName == "photoshop") {
-  main();
-}
+// if (BridgeTalk.appName == "photoshop") {
+//   main();
+// }
 
 function main() {
   doc.save(); //ファイルを上書き保存
@@ -30,7 +30,7 @@ function main() {
 
     doFinish();
   } catch (e) {
-    alert("fail to make backup. please check problem");
+    alert("fail to make backup. please check any problem");
   }
 
   doOpen(inPath);
@@ -46,8 +46,7 @@ function doOpen(fileName) {
 }
 
 /**
-   JPGで保存する
-   @param   ファイル名
+   PSDで保存する
 **/
 function saveAsPSD(outPath) {
   var fileObj = new File(outPath);
@@ -59,7 +58,7 @@ function saveAsPSD(outPath) {
   psdOpt.alphaChannels = true; // Preserve alpha channels.
   psdOpt.spotColors = true; // Preserve spot colors.
 
-  doc.saveAs(fileObj, jpegOpt, true, Extension.LOWERCASE);
+  doc.saveAs(fileObj, psd_Opt, true);
 }
 
 /**
@@ -80,19 +79,26 @@ function getTrimStr(str, SPoint, SNumber) {
 function doFinish() {
   activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 }
-// function getCurrentTime() {
-//   let time;
-//   const now = new Date();
 
-//   const Year = now.getFullYear();
-//   const Month = str(now.getMonth() + 1).padStart(2, "0");
-//   const Day = str(now.getDate()).padStart(2, "0");
-//   const Hour = str(now.getHours()).padStart(2, "0");
-//   const Min = str(now.getMinutes()).padStart(2, "0");
-//   const Sec = str(now.getSeconds()).padStart(2, "0");
+function getTimeStamp() {
+  var now = new Date();
 
-//   return (time = "_" + Year + Month + Day + "_" + Hour + Min + Sec);
-// }
+  var yea = String(now.getFullYear());
+  var mon = String(now.getMonth() + 1);
+  var dat = String(now.getDate());
+  var hou = String(now.getHours());
+  var min = String(now.getMinutes());
+  var sec = String(now.getSeconds());
+  yea = yea.slice(-2);
+  mon = ("00" + mon).slice(-2);
+  dat = ("00" + dat).slice(-2);
+  hou = ("00" + hou).slice(-2);
+  min = ("00" + min).slice(-2);
+  sec = ("00" + sec).slice(-2);
+
+  var nowTime = yea + mon + dat + "_" + hou + min + sec;
+  return nowTime;
+}
 
 /**
    pathのフォルダが無ければ作る
