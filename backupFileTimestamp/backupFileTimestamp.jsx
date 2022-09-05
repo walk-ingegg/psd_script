@@ -4,45 +4,30 @@ var docName = doc.name;
 var docPath = doc.path;
 
 var inPath = docName + "/" + docPath;
-var backupPath = docPath + "/old_" + getTrimStr(docName, ".", 0);
+var inName = getTrimStr(docName, ".", 0);
+var backupPath = docPath + "/old_" + inName;
 
 /**
  メイン
  **/
-// if (BridgeTalk.appName == "photoshop") {
-//   main();
-// }
+if (BridgeTalk.appName == "photoshop") {
+  main();
+}
 
 function main() {
   doc.save(); //ファイルを上書き保存
-  makeDir(backupPath);
+  makeDir(backupPath); //バックアップ用のフォルダ作成
 
+  var timestamp = getTimeStamp();
+  var out = backupPath + "/" + inName + "_" + timestamp + ".psd";
+
+  alert(out);
   try {
-    // 開いたファイルにアクションを適用
-    doAction(ACTION_NAME, SET_NAME);
-
-    //.psdの前の部分を抽出
-    inName = activeDocument.name;
-    inName = getTrimStr(inName, ".", 0);
-
-    // 分割されたファイルを保存する
-    saveAsJPG(outPath + "/" + inName + ".jpg");
-
-    doFinish();
+    // ファイルを保存する
+    saveAsPSD(out);
   } catch (e) {
     alert("fail to make backup. please check any problem");
   }
-
-  doOpen(inPath);
-}
-
-/**
-   ファイルを開く
-**/
-function doOpen(fileName) {
-  var fileRef = new File(fileName);
-  open(fileRef);
-  fileRef = null;
 }
 
 /**
@@ -58,7 +43,7 @@ function saveAsPSD(outPath) {
   psdOpt.alphaChannels = true; // Preserve alpha channels.
   psdOpt.spotColors = true; // Preserve spot colors.
 
-  doc.saveAs(fileObj, psd_Opt, true);
+  doc.saveAs(fileObj, psdOpt, true);
 }
 
 /**
@@ -71,13 +56,6 @@ function getTrimStr(str, SPoint, SNumber) {
   var result = SArray[SNumber];
 
   return result;
-}
-
-/**
-   ファイルを閉じる
-**/
-function doFinish() {
-  activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 }
 
 function getTimeStamp() {
@@ -96,7 +74,7 @@ function getTimeStamp() {
   min = ("00" + min).slice(-2);
   sec = ("00" + sec).slice(-2);
 
-  var nowTime = yea + mon + dat + "_" + hou + min + sec;
+  var nowTime = yea + "-" + mon + "-" + dat + "_" + hou + "-" + min + "-" + sec;
   return nowTime;
 }
 
