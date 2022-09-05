@@ -1,8 +1,4 @@
 //init settings
-IMG_EXTENSION = "*.psd";
-ACTION_NAME = "vicc_trim";
-SET_NAME = "vicc_trim";
-
 var doc = app.activeDocument;
 var docName = doc.name;
 var docPath = doc.path;
@@ -56,12 +52,12 @@ function doOpen(fileName) {
 function saveAsPSD(outPath) {
   var fileObj = new File(outPath);
 
-  var psd_Opt = new PhotoshopSaveOptions();
-  psd_Opt.layers = true; // Preserve layers.
-  psd_Opt.embedColorProfile = true; // Preserve color profile.
-  psd_Opt.annotations = true; // Preserve annonations.
-  psd_Opt.alphaChannels = true; // Preserve alpha channels.
-  psd_Opt.spotColors = true; // Preserve spot colors.
+  var psdOpt = new PhotoshopSaveOptions();
+  psdOpt.layers = true; // Preserve layers.
+  psdOpt.embedColorProfile = true; // Preserve color profile.
+  psdOpt.annotations = true; // Preserve annotations.
+  psdOpt.alphaChannels = true; // Preserve alpha channels.
+  psdOpt.spotColors = true; // Preserve spot colors.
 
   doc.saveAs(fileObj, jpegOpt, true, Extension.LOWERCASE);
 }
