@@ -6,24 +6,24 @@ var docPath = doc.path;
 var inPath = docName + "/" + docPath;
 var inName = getTrimStr(docName, ".", 0);
 var backupPath = docPath + "/old_" + inName;
+var userName = getUserName();
 
 /**
- メイン
+ main
  **/
 if (BridgeTalk.appName == "photoshop") {
   main();
 }
 
 function main() {
-  doc.save(); //ファイルを上書き保存
-  makeDir(backupPath); //バックアップ用のフォルダ作成
+  doc.save(); 
+  makeDir(backupPath); 
 
   var timestamp = getTimeStamp();
-  var out = backupPath + "/" + inName + "_" + timestamp + ".psd";
+  var out =
+    backupPath + "/" + inName + "_" + timestamp + "_" + userName + ".psd";
 
-  alert(out);
   try {
-    // ファイルを保存する
     saveAsPSD(out);
   } catch (e) {
     alert("fail to make backup. please check any problem");
@@ -58,6 +58,16 @@ function getTrimStr(str, SPoint, SNumber) {
   return result;
 }
 
+/**
+ pathのフォルダが無ければ作る
+ **/
+function makeDir(path) {
+  newFolder = new Folder(path);
+  if (!path.exists) {
+    newFolder.create();
+  }
+}
+
 function getTimeStamp() {
   var now = new Date();
 
@@ -78,12 +88,13 @@ function getTimeStamp() {
   return nowTime;
 }
 
-/**
-   pathのフォルダが無ければ作る
-**/
-function makeDir(path) {
-  newFolder = new Folder(path);
-  if (!path.exists) {
-    newFolder.create();
+function getUserName() {
+  var myUserName;
+  if (File.fs == "Windows") {
+    var myUserName = $.getenv("username");
+  } else if (File.fs == "Macintosh") {
+    var myUserName = $.getenv("USER");
   }
+
+  return myUserName;
 }
